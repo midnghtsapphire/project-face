@@ -1,5 +1,6 @@
 /**
  * Project Face — Authentication Hook
+ * Supports both real backend auth and demo/mock mode.
  */
 import { useState, useEffect, useCallback } from 'react';
 import type { User } from '../types';
@@ -24,8 +25,8 @@ export function useAuth() {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
       return data.user;
-    } catch (err: any) {
-      const msg = err.response?.data?.detail || 'Login failed';
+    } catch (err: unknown) {
+      const msg = (err instanceof Error) ? err.message : 'Login failed';
       setError(msg);
       throw new Error(msg);
     } finally {
@@ -42,8 +43,8 @@ export function useAuth() {
       localStorage.setItem('user', JSON.stringify(data.user));
       setUser(data.user);
       return data.user;
-    } catch (err: any) {
-      const msg = err.response?.data?.detail || 'Registration failed';
+    } catch (err: unknown) {
+      const msg = (err instanceof Error) ? err.message : 'Registration failed';
       setError(msg);
       throw new Error(msg);
     } finally {
@@ -63,7 +64,7 @@ export function useAuth() {
       localStorage.setItem('user', JSON.stringify(data));
       setUser(data);
     } catch {
-      // Token may be expired
+      // Token may be expired — silent fail
     }
   }, []);
 
@@ -71,6 +72,7 @@ export function useAuth() {
     if (isAuthenticated) {
       refreshUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { user, isAuthenticated, loading, error, login, register, logout, refreshUser };

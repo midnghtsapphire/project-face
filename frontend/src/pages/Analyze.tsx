@@ -3,7 +3,7 @@
  * Camera/upload interface with results display.
  */
 import React, { useState, useRef } from 'react';
-import { Camera, Upload, Loader, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Camera, Upload, Loader, CheckCircle, AlertTriangle, Leaf } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import { analysisAPI } from '../services/api';
 import { useGeolocation } from '../hooks/useGeolocation';

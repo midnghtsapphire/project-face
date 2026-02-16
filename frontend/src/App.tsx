@@ -18,6 +18,9 @@ import EcoPage from './pages/EcoPage';
 import Premium from './pages/Premium';
 import SettingsPage from './pages/SettingsPage';
 
+// Detect base path from Vite config for GitHub Pages
+const basename = import.meta.env.BASE_URL || '/';
+
 function ProtectedRoute({ children, isAuthenticated }: { children: React.ReactNode; isAuthenticated: boolean }) {
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
@@ -29,7 +32,7 @@ export default function App() {
   const { user, isAuthenticated, login, register, logout, refreshUser } = useAuth();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Layout
         isAuthenticated={isAuthenticated}
         onLogout={logout}

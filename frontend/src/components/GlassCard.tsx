@@ -12,6 +12,7 @@ interface GlassCardProps {
   role?: string;
   ariaLabel?: string;
   ariaLabelledBy?: string;
+  style?: React.CSSProperties;
 }
 
 export default function GlassCard({
@@ -21,6 +22,7 @@ export default function GlassCard({
   role,
   ariaLabel,
   ariaLabelledBy,
+  style,
 }: GlassCardProps) {
   return (
     <Component
@@ -28,6 +30,7 @@ export default function GlassCard({
       role={role}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}
+      style={style}
     >
       {children}
     </Component>

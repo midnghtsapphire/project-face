@@ -1,6 +1,7 @@
 /**
  * Project Face — API Service Layer
  * Centralized HTTP client for all backend communication.
+ * Falls back to mock API in demo mode (no backend / GitHub Pages deployment).
  */
 import axios from 'axios';
 import type {
@@ -8,6 +9,11 @@ import type {
   ClinicalTrial, MedicalTourismDest, EcoMetrics,
   SubscriptionStatus, AnalysisHistory,
 } from '../types';
+import {
+  isDemoMode,
+  mockAuthAPI, mockAnalysisAPI, mockWeatherAPI,
+  mockTrialsAPI, mockTourismAPI, mockSubscriptionAPI, mockEcoAPI,
+} from './mockApi';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
@@ -32,14 +38,17 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      // Use hash-aware redirect for GitHub Pages
+      window.location.href = window.location.pathname.includes('/project-face')
+        ? '/project-face/login'
+        : '/login';
     }
     return Promise.reject(error);
   }
 );
 
 // ---- Auth ----
-export const authAPI = {
+export const authAPI = isDemoMode() ? mockAuthAPI : {
   register: (email: string, password: string, full_name?: string) =>
     api.post<TokenResponse>('/auth/register', { email, password, full_name }),
 
@@ -52,7 +61,7 @@ export const authAPI = {
 };
 
 // ---- Skin Analysis ----
-export const analysisAPI = {
+export const analysisAPI = isDemoMode() ? mockAnalysisAPI : {
   analyze: (formData: FormData) =>
     api.post<SkinAnalysis>('/analysis/analyze', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -68,7 +77,7 @@ export const analysisAPI = {
 };
 
 // ---- Weather ----
-export const weatherAPI = {
+export const weatherAPI = isDemoMode() ? mockWeatherAPI : {
   getCurrent: (latitude: number, longitude: number) =>
     api.post<WeatherData>('/weather/current', { latitude, longitude }),
 
@@ -76,7 +85,7 @@ export const weatherAPI = {
 };
 
 // ---- Clinical Trials ----
-export const trialsAPI = {
+export const trialsAPI = isDemoMode() ? mockTrialsAPI : {
   search: (condition: string, location?: string, status = 'RECRUITING', max_results = 10) =>
     api.post<ClinicalTrial[]>('/trials/search', {
       condition, location, status, max_results,
@@ -86,7 +95,7 @@ export const trialsAPI = {
 };
 
 // ---- Medical Tourism ----
-export const tourismAPI = {
+export const tourismAPI = isDemoMode() ? mockTourismAPI : {
   getRecommendations: (condition: string, budget_range?: string, preferred_region?: string) =>
     api.post<MedicalTourismDest[]>('/medical-tourism', {
       condition, budget_range, preferred_region,
@@ -94,7 +103,7 @@ export const tourismAPI = {
 };
 
 // ---- Subscription ----
-export const subscriptionAPI = {
+export const subscriptionAPI = isDemoMode() ? mockSubscriptionAPI : {
   createCheckout: (price_id: string, success_url: string, cancel_url: string) =>
     api.post('/subscription/checkout', { price_id, success_url, cancel_url }),
 
@@ -104,7 +113,7 @@ export const subscriptionAPI = {
 };
 
 // ---- Eco Metrics ----
-export const ecoAPI = {
+export const ecoAPI = isDemoMode() ? mockEcoAPI : {
   getMetrics: () => api.get<EcoMetrics>('/eco-metrics'),
 };
 
