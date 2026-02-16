@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Project Face — Global Styles
+   Warm Earthy Dark Theme + Glassmorphism
+   WCAG AAA Accessible | Neurodivergent-Friendly
+   ============================================ */
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #121110;
+    color: #e8e4de;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus styles for keyboard navigation — WCAG AAA */
+  :focus-visible {
+    outline: 3px solid #f1c232;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Skip to main content link */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 9999;
+    padding: 12px 24px;
+    background: #f1c232;
+    color: #121110;
+    font-weight: 600;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+}
+
+@layer components {
+  /* Glassmorphism panels */
+  .glass-panel {
+    background: rgba(30, 27, 24, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(232, 228, 222, 0.08);
+    border-radius: 16px;
+  }
+
+  .glass-panel-light {
+    background: rgba(52, 46, 40, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(232, 228, 222, 0.1);
+    border-radius: 12px;
+  }
+
+  .glass-card {
+    background: rgba(42, 37, 32, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 228, 222, 0.06);
+    border-radius: 12px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(241, 194, 50, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, #e54d2e, #c93a1e);
+    color: #fef2f0;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #f07052, #e54d2e);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(229, 77, 46, 0.3);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    background: rgba(61, 138, 80, 0.2);
+    color: #8ec298;
+    border: 1px solid rgba(61, 138, 80, 0.3);
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(61, 138, 80, 0.3);
+    border-color: rgba(61, 138, 80, 0.5);
+  }
+
+  .btn-gold {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, #f1c232, #e1a515);
+    color: #121110;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-gold:hover {
+    background: linear-gradient(135deg, #f5d559, #f1c232);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(241, 194, 50, 0.3);
+  }
+
+  /* Score indicators */
+  .score-excellent {
+    color: #5ea56c;
+  }
+
+  .score-good {
+    color: #8ec298;
+  }
+
+  .score-moderate {
+    color: #f1c232;
+  }
+
+  .score-poor {
+    color: #f07052;
+  }
+
+  .score-critical {
+    color: #e54d2e;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #1e1b18;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4a4137;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #635747;
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
