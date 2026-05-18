@@ -19,6 +19,8 @@ target_metadata = Base.metadata
 
 db_url = os.environ.get("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
 if db_url:
+    # Ensure we use sync driver for migrations
+    db_url = db_url.replace("postgresql+asyncpg://", "postgresql://")
     config.set_main_option("sqlalchemy.url", db_url)
 
 
