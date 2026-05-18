@@ -10,7 +10,24 @@
 
 *AI-powered skin analysis that adapts to your environment. Personalized recommendations, progress tracking, clinical trials discovery — all in one place.*
 
+[![CI/CD](https://github.com/midnghtsapphire/project-face/actions/workflows/ci.yml/badge.svg)](https://github.com/midnghtsapphire/project-face/actions)
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+
 </div>
+
+---
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [README.md](README.md) | **This file** — Overview and quick start |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Complete production deployment guide |
+| [API.md](API.md) | API documentation with examples |
+| [TESTING.md](TESTING.md) | Testing guide for all levels |
+| [SHIPPING.md](SHIPPING.md) | Pre-launch checklist |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contributing guidelines |
+| [SECURITY.md](SECURITY.md) | Security policy |
 
 ---
 
