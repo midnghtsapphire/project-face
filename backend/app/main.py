@@ -10,6 +10,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 import os
 import logging
 import time
@@ -24,6 +27,9 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# Rate limiter
+limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -48,6 +54,10 @@ app = FastAPI(
         "name": "Proprietary",
     },
 )
+
+# Add rate limiter to app state
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Add security middleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
