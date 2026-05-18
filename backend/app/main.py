@@ -60,6 +60,8 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Add security middleware
+# NOTE: TrustedHostMiddleware allows all hosts in DEBUG mode for development convenience
+# In production (DEBUG=False), only specific hosts are allowed: *.rvvel.com, localhost, 127.0.0.1
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     TrustedHostMiddleware,

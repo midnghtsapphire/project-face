@@ -6,11 +6,17 @@ on:
   pull_request:
     branches: [main, develop]
 
+# Minimal permissions for security
+permissions:
+  contents: read
+
 jobs:
   # ─── Backend Tests ─────────────────────────────────────────
   backend-test:
     name: Backend Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     services:
       postgres:
@@ -76,6 +82,8 @@ jobs:
   frontend-test:
     name: Frontend Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -116,6 +124,9 @@ jobs:
   security:
     name: Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
     
     steps:
       - name: Checkout code
@@ -139,6 +150,8 @@ jobs:
   docker-build:
     name: Docker Build Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code
@@ -172,6 +185,8 @@ jobs:
     name: Integration Test
     runs-on: ubuntu-latest
     needs: [backend-test, frontend-test]
+    permissions:
+      contents: read
     
     steps:
       - name: Checkout code

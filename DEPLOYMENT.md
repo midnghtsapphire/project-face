@@ -147,7 +147,7 @@ POSTGRES_DB=projectface_prod
 DATABASE_URL=postgresql://projectface_prod:<password>@postgres:5432/projectface_prod
 
 # ---- Redis ----
-REDIS_URL=redis://:< redis-password>@redis:6379/0
+REDIS_URL=redis://:<redis-password>@redis:6379/0
 REDIS_PASSWORD=<strong-redis-password>
 
 # ---- Backend ----
